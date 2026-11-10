@@ -13,6 +13,14 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Fetch native sources (proot, libandroid-shmem)
+        run: |
+          rm -rf third_party/proot third_party/libandroid-shmem
+          git clone --depth 1 https://github.com/termux/proot.git third_party/proot
+          git clone --depth 1 https://github.com/termux/libandroid-shmem.git third_party/libandroid-shmem
+          test -f third_party/proot/src/loader/loader.c
+          test -f third_party/libandroid-shmem/shmem.c
+
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
